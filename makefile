@@ -116,4 +116,4 @@ clean::
 	$(RM) -r $(BUILD)
 
 distclean: clean
-	$(RM) -r $(HOST)
+	find . -name '*~' | xargs $(RM) -r $(HOST) $(SRC)
