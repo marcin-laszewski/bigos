@@ -1,32 +1,33 @@
-MAKE_OPTS	?=
+#--- Config -----------------------------------------------
+BINUTILS_VER	= 164dc55d3d9488a487d39c2e7f3f8cadf6dc12f5
+BINUTILS_GIT	= https://github.com/tkchia/binutils-ia16
+GCC_VER		= 17bd8a491ca31f8fd867b1f1a380cbbc5ef53b07
+GMP_VER		= 6.1.2
+MPFR_VER	= 3.1.5
+MPC_VER		= 1.0.3
 
+#----------------------------------------------------------
 DL		= dl
 BUILD		= build
 HOST		= host
 SRC		= src
 
 BINUTILS	= binutils-ia16
-BINUTILS_VER	= 164dc55d3d9488a487d39c2e7f3f8cadf6dc12f5
-BINUTILS_GIT	= https://github.com/tkchia/binutils-ia16
 BINUTILS_DL	= $(DL)/$(BINUTILS).tar.gz
 BINUTILS_BUILD	= $(BUILD)/host/binutils
 
 GCC		= gcc-ia16
-GCC_VER		= 17bd8a491ca31f8fd867b1f1a380cbbc5ef53b07
 GCC_DL		= $(DL)/$(GCC)-$(GCC_VER).tar.gz
 GCC_BUILD	= $(BUILD)/host/$(GCC)
 GCC_SRC		= $(SRC)/$(GCC)
 
 GMP	= gmp
-GMP_VER	= 6.1.2
 GMP_DL	= $(DL)/$(GMP)-$(GMP_VER).tar.bz2
 
 MPFR	= mpfr
-MPFR_VER=3.1.5
 MPFR_DL	= $(DL)/$(MPFR)-$(MPFR_VER).tar.bz2
 
 MPC	= mpc
-MPC_VER	= 1.0.3
 MPC_DL	= $(DL)/$(MPC)-$(MPC_VER).tar.gz
 
 all: \
