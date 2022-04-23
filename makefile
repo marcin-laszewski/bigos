@@ -56,25 +56,13 @@ $(GCC_BUILD)/Makefile: \
 		--disable-libssp \
 		--without-isl
 
-$(GCC_SRC)/configure: $(GCC_DL)
-	mkdir -p $(dir $@)
-	tar xf $< -C $(dir $@) --strip=1
-	touch $@
+$(GCC_SRC)/configure:		$(GCC_DL)
 
-$(GCC_SRC)/gmp/configure: $(GMP_DL)
-	mkdir -p $(dir $@)
-	tar xf $< -C $(dir $@) --strip=1
-	touch $@
+$(GCC_SRC)/gmp/configure:	$(GMP_DL)
 
-$(GCC_SRC)/mpc/configure: $(MPC_DL)
-	mkdir -p $(dir $@)
-	tar xf $< -C $(dir $@) --strip=1
-	touch $@
+$(GCC_SRC)/mpc/configure:	$(MPC_DL)
 
-$(GCC_SRC)/mpfr/configure: $(MPFR_DL)
-	mkdir -p $(dir $@)
-	tar xf $< -C $(dir $@) --strip=1
-	touch $@
+$(GCC_SRC)/mpfr/configure:	$(MPFR_DL)
 
 $(GCC_DL):	URL=https://github.com/tkchia/gcc-ia16/tarball/$(GCC_VER)
 
@@ -109,11 +97,13 @@ $(BINUTILS_BUILD)/Makefile: $(BINUTILS_BUILD)/configure
 		--disable-nls
 
 $(BINUTILS_BUILD)/configure: $(BINUTILS_DL)
+
+$(BINUTILS_DL): URL=$(BINUTILS_GIT)/archive/$(BINUTILS_VER).tar.gz
+
+%/configure:
 	mkdir -p $(dir $@)
 	tar xf $< -C $(dir $@) --strip=1
 	touch $@
-
-$(BINUTILS_DL): URL=$(BINUTILS_GIT)/archive/$(BINUTILS_VER).tar.gz
 
 %: %.wget
 	mv $< $@
