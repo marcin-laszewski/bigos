@@ -1,5 +1,6 @@
 #--- Config -----------------------------------------------
 MAKE_OPTS	?= -j`nproc`
+
 BINUTILS_VER	= 164dc55d3d9488a487d39c2e7f3f8cadf6dc12f5
 BINUTILS_GIT	= https://github.com/tkchia/binutils-ia16
 GCC_VER		= 17bd8a491ca31f8fd867b1f1a380cbbc5ef53b07
@@ -59,17 +60,12 @@ $(GCC_BUILD)/Makefile: \
 		--without-isl
 
 $(GCC_SRC)/configure:		$(GCC_DL)
-
 $(GCC_SRC)/gmp/configure:	$(GMP_DL)
-
 $(GCC_SRC)/mpc/configure:	$(MPC_DL)
-
 $(GCC_SRC)/mpfr/configure:	$(MPFR_DL)
 
 $(GCC_DL):	URL=https://github.com/tkchia/gcc-ia16/tarball/$(GCC_VER)
-
 $(GMP_DL):	URL=https://gmplib.org/download/gmp/$(GMP)-$(GMP_VER).tar.bz2
-
 $(MPFR_DL):	URL=https://www.mpfr.org/$(MPFR)-$(MPFR_VER)/$(MPFR)-$(MPFR_VER).tar.bz2
 $(MPFR_DL):	OPTS=--no-check-certificate
 
