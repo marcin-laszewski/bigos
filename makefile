@@ -1,4 +1,5 @@
 #--- Config -----------------------------------------------
+MAKE_OPTS	?= -j`nproc`
 BINUTILS_VER	= 164dc55d3d9488a487d39c2e7f3f8cadf6dc12f5
 BINUTILS_GIT	= https://github.com/tkchia/binutils-ia16
 GCC_VER		= 17bd8a491ca31f8fd867b1f1a380cbbc5ef53b07
