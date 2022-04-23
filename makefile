@@ -3,6 +3,7 @@ MAKE_OPTS	?= -j`nproc`
 
 BINUTILS_VER	= 164dc55d3d9488a487d39c2e7f3f8cadf6dc12f5
 BINUTILS_GIT	= https://github.com/tkchia/binutils-ia16
+ELKS_VER	= master
 GCC_VER		= 17bd8a491ca31f8fd867b1f1a380cbbc5ef53b07
 GMP_VER		= 6.1.2
 MPFR_VER	= 3.1.5
@@ -13,10 +14,15 @@ DL		= dl
 BUILD		= build
 HOST		= host
 SRC		= src
+TARGET		= target
 
 BINUTILS	= binutils-ia16
 BINUTILS_DL	= $(DL)/$(BINUTILS).tar.gz
 BINUTILS_BUILD	= $(BUILD)/host/binutils
+
+ELKS		= elks
+ELKS_BUILD	= $(BUILD)/$(TARGET)/$(ELKS)
+ELKS_DL		= $(DL)/$(ELKS)-$(ELKS_VER).tar.gz
 
 GCC		= gcc-ia16
 GCC_DL		= $(DL)/$(GCC)-$(GCC_VER).tar.gz
@@ -35,6 +41,12 @@ MPC_DL	= $(DL)/$(MPC)-$(MPC_VER).tar.gz
 all: \
  $(HOST)/.binutils \
  $(HOST)/.gcc \
+ $(ELKS_BUILD)/.build \
+
+$(ELKS_BUILD)/.build: $(ELKS_DL)
+	mkdir -p $(dir $@)
+	tar xf $< -C $(dir $@) --strip=1
+	touch $@
 
 $(HOST)/.gcc: $(GCC_BUILD)/.build
 	$(MAKE) -C $(dir $<) install
@@ -65,6 +77,7 @@ $(GCC_SRC)/mpc/configure:	$(MPC_DL)
 $(GCC_SRC)/mpfr/configure:	$(MPFR_DL)
 
 $(GCC_DL):	URL=https://github.com/tkchia/gcc-ia16/tarball/$(GCC_VER)
+$(ELKS_DL):	URL=https://github.com/elks-org/elks/tarball/$(ELKS_VER)
 $(GMP_DL):	URL=https://gmplib.org/download/gmp/$(GMP)-$(GMP_VER).tar.bz2
 $(MPFR_DL):	URL=https://www.mpfr.org/$(MPFR)-$(MPFR_VER)/$(MPFR)-$(MPFR_VER).tar.bz2
 $(MPFR_DL):	OPTS=--no-check-certificate
